@@ -966,7 +966,42 @@ Logic.registerPanel(P_CONTAINERS_EDIT, {
     Logic.addEnterHandler(document.querySelector("#exit-edit-mode-link"), () => {
       Logic.showPanel(P_CONTAINERS_LIST);
     });
+
+    document.addEventListener("keydown", (e) => {
+      const selectables = [...document.querySelectorAll(".open-newtab[tabindex='0']")];
+      const element = document.activeElement;
+      const index = selectables.indexOf(element) || 0;
+      function next() {
+        const nextElement = selectables[index + 1];
+        if (nextElement) {
+          nextElement.focus();
+        }
+      }
+      function previous() {
+        const previousElement = selectables[index - 1];
+        if (previousElement) {
+          previousElement.focus();
+        }
+      }
+      switch (e.keyCode) {
+        case 40:
+          next();
+          console.log("press down key in the editable");
+          break;
+        default:
+          if ((e.keyCode >= 49 && e.keyCode <= 57) &&
+              Logic._currentPanel === "containersList") {
+            const element = selectables[e.keyCode - 49];
+            if (element) {
+              element.click();
+            }
+          }
+          break;
+      }
+    });
   },
+
+  // Add the listener for deletion
 
   // This method is called when the panel is shown.
   prepare() {
