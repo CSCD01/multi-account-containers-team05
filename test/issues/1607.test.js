@@ -8,7 +8,7 @@ describe("#1607", function () {
         url: "http://example.com"
       });
 
-      await webExtension.popup.helper.clickElementById("container-page-assigned");
+      await webExtension.popup.helper.clickElementById("sort-containers-link-window");
 
       const responses = {};
       await webExtension.background.browser.tabs._create({
